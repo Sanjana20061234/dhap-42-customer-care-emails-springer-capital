@@ -1,0 +1,13 @@
+name: customer_care_emails
+source_url: https://huggingface.co/datasets/rtweera/customer_care_emails
+license: gpl-3.0
+owner: Sanjana
+project_owner: Springer Capital Intern (DHAP-42)
+source_format: csv
+source_row_count: 2259
+source_column_count: 13
+csv_checksum: fbed7a96bdc62bcf1d55a5849417f631f7fbfda8d7e682583126893584e5a28b
+status: done
+minio_bucket: customer-care-emails
+minio_prefix: customer_care_emails/
+partition_column: email_date

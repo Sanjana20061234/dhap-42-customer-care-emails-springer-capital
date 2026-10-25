@@ -1,0 +1,149 @@
+dataset: customer_care_emails
+version: 1.0.0
+source_format: csv
+expected_column_count: 13
+expected_columns:
+  - subject
+  - sender
+  - receiver
+  - timestamp
+  - message_body
+  - thread_id
+  - email_types
+  - email_status
+  - email_criticality
+  - product_types
+  - agent_effectivity
+  - agent_efficiency
+  - customer_satisfaction
+
+primary_key: email_key
+partition_column: email_date
+
+columns:
+  - name: email_key
+    type: string
+    parquet_type: string
+    nullable: false
+    derived: true
+    description: "SHA-256 hash of thread_id|UTC timestamp ISO|sender|md5(cleaned_body)"
+
+  - name: email_date
+    type: string
+    parquet_type: string
+    nullable: false
+    derived: true
+    description: "UTC date partition extracted from normalized timestamp in YYYY-MM-DD format"
+
+  - name: subject
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    description: "Email subject line"
+
+  - name: sender
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    description: "Email sender address or display name with address"
+
+  - name: receiver
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    description: "Email recipient address or display name with address"
+
+  - name: timestamp
+    type: string
+    parquet_type: timestamp_tz
+    nullable: false
+    allow_empty: false
+    description: "Event timestamp parsed to timezone-aware UTC"
+
+  - name: message_body
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    description: "Body text of the customer care email"
+
+  - name: thread_id
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    description: "Customer service thread identifier"
+
+  - name: email_types
+    type: list
+    parquet_type: list<string>
+    nullable: false
+    allowed:
+      - inquiry
+      - issue
+      - suggestion
+      - other matter
+
+  - name: email_status
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    allowed:
+      - ongoing
+      - completed
+
+  - name: email_criticality
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    allowed:
+      - low
+      - medium
+      - high
+
+  - name: product_types
+    type: list
+    parquet_type: list<string>
+    nullable: false
+    case_insensitive_allowed:
+      - API Development
+      - API Monitoring
+      - Cloud Management
+      - IAM Service
+      - Mercury Language
+
+  - name: agent_effectivity
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    allowed:
+      - very low
+      - low
+      - medium
+      - high
+      - very high
+
+  - name: agent_efficiency
+    type: string
+    parquet_type: string
+    nullable: false
+    allow_empty: false
+    allowed:
+      - very low
+      - low
+      - medium
+      - high
+      - very high
+
+  - name: customer_satisfaction
+    type: float
+    parquet_type: double
+    nullable: false
+    min: -1.0
+    max: 1.0

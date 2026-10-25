@@ -1,0 +1,28 @@
+# Reference folder (read-only reference, must not be committed)
+Dhap34_reference/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# Airflow / Local runs
+logs/
+temp/
+tmp/
+*.parquet
+
+# Generated test artifacts
+tests/data/
+
+# OS specific
+.DS_Store
+Thumbs.db
